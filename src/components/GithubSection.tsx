@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ArrowRight, GitMerge, Star, GitCommit, Users } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 
@@ -12,21 +11,15 @@ export function GithubSection() {
           
           <div className="w-full md:w-5/12 flex flex-col gap-6">
             <FaGithub size={48} className="text-white/20 mb-4" />
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
-            >
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
               Built in <span className="text-gray-500">Public.</span>
-            </motion.h2>
+            </h2>
             <p className="text-gray-400 text-lg leading-relaxed max-w-md">
               I believe in open source and building in public. Check out my GitHub to see my latest contributions, experiments, and featured repositories.
             </p>
             
             <a 
-              href="https://github.com" 
+              href="https://github.com/moizmalik777" 
               data-cursor="open"
               target="_blank"
               rel="noopener noreferrer"
@@ -38,17 +31,11 @@ export function GithubSection() {
           </div>
           
           <div className="w-full md:w-7/12">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="grid grid-cols-2 gap-4"
-            >
+            <div className="grid grid-cols-2 gap-4">
               {/* Stats Card */}
               <div className="col-span-2 md:col-span-1 flex flex-col gap-4">
                 <div className="p-6 rounded-2xl glass border border-white/5 flex flex-col items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                     <GitCommit size={20} />
                   </div>
                   <div>
@@ -58,7 +45,7 @@ export function GithubSection() {
                 </div>
                 
                 <div className="p-6 rounded-2xl glass border border-white/5 flex flex-col items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400">
+                  <div className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
                     <Users size={20} />
                   </div>
                   <div>
@@ -98,7 +85,7 @@ export function GithubSection() {
                   <p className="text-sm text-gray-500 line-clamp-2">A lightweight React hook for custom animated cursors.</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
           
         </div>

@@ -1,16 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
   { name: "Experience", href: "#experience" },
 ];
 
@@ -22,23 +21,30 @@ export function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
-      // Active section logic
-      const sections = navLinks.map(link => link.name.toLowerCase());
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
     };
-
-    window.addEventListener("scroll", handleScroll);
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-100px 0px -80% 0px" }
+    );
+
+    navLinks.forEach((link) => {
+      const element = document.getElementById(link.name.toLowerCase());
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -59,12 +65,16 @@ export function Navbar() {
         )}
       >
         <div className="container mx-auto px-6 max-w-7xl flex items-center justify-between">
-          <Link href="/" className="relative group text-2xl font-bold tracking-tighter">
-            <span className="text-foreground">A</span>
-            <span className="text-primary">M</span>
-            <motion.div 
-              className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"
+          <Link href="/" className="relative group flex items-center">
+            <Image 
+              src="/logo.png" 
+              alt="Abdul Moiz Logo" 
+              width={80} 
+              height={80} 
+              className="object-contain"
+              priority
             />
+            <div className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
           </Link>
 
           {/* Desktop Nav */}
@@ -83,13 +93,7 @@ export function Navbar() {
                   >
                     {link.name}
                     {activeSection === link.name.toLowerCase() && (
-                      <motion.div
-                        layoutId="activeSection"
-                        className="absolute -bottom-2 left-0 right-0 h-[2px] bg-primary"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
+                      <div className="absolute -bottom-2 left-0 right-0 h-[2px] bg-primary" />
                     )}
                   </a>
                 </li>
@@ -112,6 +116,7 @@ export function Navbar() {
           <button
             className="md:hidden text-gray-300 hover:text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -119,52 +124,35 @@ export function Navbar() {
       </header>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-30 pt-24 px-6 bg-[#030712]/95 backdrop-blur-xl md:hidden flex flex-col"
-          >
-            <ul className="flex flex-col gap-6 text-xl">
-              {navLinks.map((link) => (
-                <motion.li
-                  key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  <a
-                    href={link.href}
-                    onClick={(e) => scrollToSection(e, link.href)}
-                    className={cn(
-                      "block py-2 font-medium",
-                      activeSection === link.name.toLowerCase() ? "text-primary" : "text-gray-300"
-                    )}
-                  >
-                    {link.name}
-                  </a>
-                </motion.li>
-              ))}
-              <motion.li
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-                className="mt-4"
-              >
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-30 pt-24 px-6 bg-[#030712]/95 backdrop-blur-xl md:hidden flex flex-col">
+          <ul className="flex flex-col gap-6 text-xl">
+            {navLinks.map((link) => (
+              <li key={link.name}>
                 <a
-                  href="#contact"
-                  onClick={(e) => scrollToSection(e, "#contact")}
-                  className="inline-block px-6 py-3 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium"
+                  href={link.href}
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  className={cn(
+                    "block py-2 font-medium",
+                    activeSection === link.name.toLowerCase() ? "text-primary" : "text-gray-300"
+                  )}
                 >
-                  Let's Talk
+                  {link.name}
                 </a>
-              </motion.li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </li>
+            ))}
+            <li className="mt-4">
+              <a
+                href="#contact"
+                onClick={(e) => scrollToSection(e, "#contact")}
+                className="inline-block px-6 py-3 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium"
+              >
+                Let's Talk
+              </a>
+            </li>
+          </ul>
+        </div>
+      )}
     </>
   );
 }

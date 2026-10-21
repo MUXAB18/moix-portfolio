@@ -1,56 +1,40 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-
 export function AnimatedBackground() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: e.clientX,
-        y: e.clientY,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
   return (
     <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
-      <div className="bg-noise mix-blend-overlay" />
-      <div className="absolute inset-0 bg-grid opacity-10 [mask-image:linear-gradient(to_bottom,white,transparent)]" />
+      <div className="bg-noise" />
+      <div className="absolute inset-0 bg-grid opacity-40 [mask-image:linear-gradient(to_bottom,white,transparent)]" />
       
-      <motion.div
-        className="absolute w-[600px] h-[600px] rounded-full blur-[120px] opacity-20 mix-blend-screen"
+      {/* Premium gradient orbs - CSS only */}
+      <div 
+        className="absolute top-[15%] left-[10%] w-[500px] h-[500px] rounded-full opacity-20 animate-float-slow"
         style={{
-          background: "radial-gradient(circle, #3b82f6 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(96, 165, 250, 0.4) 0%, rgba(59, 130, 246, 0.2) 40%, transparent 70%)",
+          filter: "blur(60px)",
         }}
-        animate={{
-          x: mousePosition.x - 300,
-          y: mousePosition.y - 300,
-        }}
-        transition={{ type: "tween", ease: "easeOut", duration: 0.5 }}
       />
       
-      <motion.div
-        className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[100px] opacity-10 mix-blend-screen"
+      <div 
+        className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full opacity-15 animate-float-slower"
         style={{
-          background: "radial-gradient(circle, #8b5cf6 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(147, 197, 253, 0.3) 0%, rgba(96, 165, 250, 0.15) 40%, transparent 70%)",
+          filter: "blur(50px)",
         }}
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.1, 0.15, 0.1],
+      />
+      
+      <div 
+        className="absolute bottom-1/4 left-1/3 w-[350px] h-[350px] rounded-full opacity-10 animate-float-up"
+        style={{
+          background: "radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%)",
+          filter: "blur(50px)",
         }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
+      />
+      
+      {/* Spotlight effect */}
+      <div 
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] opacity-10"
+        style={{
+          background: "radial-gradient(ellipse at center, rgba(96, 165, 250, 0.15) 0%, transparent 70%)",
+          filter: "blur(40px)",
         }}
       />
     </div>

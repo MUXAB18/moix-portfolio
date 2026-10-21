@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ArrowUp, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 
 export function Footer() {
   const scrollToTop = () => {
@@ -15,20 +15,25 @@ export function Footer() {
       <div className="container mx-auto px-6 max-w-7xl pt-16 pb-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
           
-          <Link href="/" className="text-xl font-bold tracking-tighter">
-            <span className="text-foreground">Abdul</span>
-            <span className="text-primary">Moiz</span>
-            <span className="text-gray-500 font-normal text-sm ml-2 hidden md:inline-block">
+          <Link href="/" className="flex items-center group">
+            <Image 
+              src="/logo.png" 
+              alt="Abdul Moiz Logo" 
+              width={64} 
+              height={64} 
+              className="object-contain"
+            />
+            <span className="text-gray-500 font-normal text-sm ml-4 hidden md:inline-block">
               — Full Stack Engineer
             </span>
           </Link>
 
           <div className="flex items-center gap-4">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-colors">
+            <a href="https://github.com/moizmalik777" target="_blank" rel="noopener noreferrer" className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-colors">
               <FaGithub size={20} />
               <span className="sr-only">GitHub</span>
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-colors">
+            <a href="https://www.linkedin.com/in/abdul-moiz-8876a8440" target="_blank" rel="noopener noreferrer" className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-colors">
               <FaLinkedin size={20} />
               <span className="sr-only">LinkedIn</span>
             </a>

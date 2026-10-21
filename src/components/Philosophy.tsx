@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Zap, Layers, Sparkles } from "lucide-react";
 
 const principles = [
@@ -30,27 +27,14 @@ export function Philosophy() {
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex flex-col md:flex-row gap-12 lg:gap-24">
           <div className="w-full md:w-1/3">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-4xl md:text-5xl font-bold tracking-tight text-foreground"
-            >
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
               How I Build
-            </motion.h2>
+            </h2>
           </div>
           
           <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-3 gap-8">
-            {principles.map((p, i) => (
-              <motion.div
-                key={p.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="flex flex-col"
-              >
+            {principles.map((p) => (
+              <div key={p.id} className="flex flex-col">
                 <div className="flex items-center gap-4 mb-6">
                   <span className="text-sm font-mono text-gray-500">{p.id}</span>
                   <div className="h-[1px] flex-1 bg-white/10" />
@@ -62,7 +46,7 @@ export function Philosophy() {
                 <p className="text-gray-400 leading-relaxed text-sm lg:text-base">
                   {p.description}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

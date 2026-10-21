@@ -1,7 +1,5 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
 import { SectionHeading } from "./SectionHeading";
 import { SiNextdotjs, SiTypescript, SiReact, SiMongodb } from "react-icons/si";
 import { FaDocker, FaAws } from "react-icons/fa";
@@ -41,37 +39,19 @@ const experiences = [
 ];
 
 export function Experience() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"]
-  });
-
-  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
   return (
     <section id="experience" className="py-32 relative border-t border-white/5">
       <div className="container mx-auto px-6 max-w-5xl">
         <SectionHeading title="Experience" subtitle="Where I've Worked" />
 
-        <div ref={containerRef} className="relative mt-16 ml-4 md:ml-8">
-          {/* Static Background Line */}
-          <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-white/10" />
-          
-          {/* Animated Progress Line */}
-          <motion.div
-            style={{ height: lineHeight }}
-            className="absolute left-0 top-0 w-[2px] bg-primary origin-top -translate-x-[0.5px]"
-          />
+        <div className="relative mt-16 ml-4 md:ml-8">
+          {/* Timeline Line */}
+          <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-white/10" />
 
           <div className="flex flex-col gap-16">
             {experiences.map((exp, index) => (
-              <motion.div 
+              <div 
                 key={index}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: 0.1 }}
                 className="relative pl-8 md:pl-16"
               >
                 {/* Timeline Dot */}
@@ -98,7 +78,7 @@ export function Experience() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
