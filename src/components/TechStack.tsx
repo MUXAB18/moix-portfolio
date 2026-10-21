@@ -1,81 +1,71 @@
+import type { IconType } from "react-icons";
+import {
+  SiNextdotjs, SiReact, SiTypescript, SiJavascript, SiTailwindcss, SiNodedotjs,
+  SiExpress, SiPostgresql, SiMongodb, SiPrisma, SiGit, SiGithub, SiDocker, SiFirebase,
+} from "react-icons/si";
+import { GlowCard } from "./GlowCard";
+import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
-import { FaReact, FaNodeJs, FaGitAlt, FaGithub, FaDocker } from "react-icons/fa";
-import { SiNextdotjs, SiTypescript, SiJavascript, SiExpress, SiMongodb, SiPostgresql, SiPrisma, SiTailwindcss, SiFirebase } from "react-icons/si";
 
-const techCategories = [
+const groups: { title: string; blurb: string; skills: { name: string; icon: IconType }[] }[] = [
   {
     title: "Frontend",
-    items: [
-      { name: "React", icon: FaReact, color: "#61DAFB", desc: "UI Library" },
-      { name: "Next.js", icon: SiNextdotjs, color: "#ffffff", desc: "React Framework" },
-      { name: "TypeScript", icon: SiTypescript, color: "#3178C6", desc: "Typed JavaScript" },
-      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4", desc: "Utility CSS" },
-      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E", desc: "Web Language" },
-    ]
+    blurb: "Interfaces that are fast, accessible and considered.",
+    skills: [
+      { name: "React", icon: SiReact },
+      { name: "Next.js", icon: SiNextdotjs },
+      { name: "TypeScript", icon: SiTypescript },
+      { name: "JavaScript", icon: SiJavascript },
+      { name: "Tailwind CSS", icon: SiTailwindcss },
+    ],
   },
   {
-    title: "Backend & DB",
-    items: [
-      { name: "Node.js", icon: FaNodeJs, color: "#339933", desc: "JS Runtime" },
-      { name: "Express", icon: SiExpress, color: "#ffffff", desc: "Web Framework" },
-      { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1", desc: "Relational DB" },
-      { name: "MongoDB", icon: SiMongodb, color: "#47A248", desc: "NoSQL DB" },
-      { name: "Prisma", icon: SiPrisma, color: "#2D3748", desc: "Next-gen ORM" },
-    ]
+    title: "Backend & data",
+    blurb: "Reliable APIs and well-modelled data.",
+    skills: [
+      { name: "Node.js", icon: SiNodedotjs },
+      { name: "Express", icon: SiExpress },
+      { name: "PostgreSQL", icon: SiPostgresql },
+      { name: "MongoDB", icon: SiMongodb },
+      { name: "Prisma", icon: SiPrisma },
+    ],
   },
   {
-    title: "Tools & Cloud",
-    items: [
-      { name: "Git", icon: FaGitAlt, color: "#F05032", desc: "Version Control" },
-      { name: "GitHub", icon: FaGithub, color: "#ffffff", desc: "Code Hosting" },
-      { name: "Docker", icon: FaDocker, color: "#2496ED", desc: "Containerization" },
-      { name: "Firebase", icon: SiFirebase, color: "#FFCA28", desc: "BaaS Platform" },
-    ]
-  }
+    title: "Tools",
+    blurb: "A workflow that keeps shipping smooth.",
+    skills: [
+      { name: "Git", icon: SiGit },
+      { name: "GitHub", icon: SiGithub },
+      { name: "Docker", icon: SiDocker },
+      { name: "Firebase", icon: SiFirebase },
+    ],
+  },
 ];
+
+export const skillCount = groups.reduce((n, g) => n + g.skills.length, 0);
 
 export function TechStack() {
   return (
-    <section id="skills" className="py-32 relative border-t border-white/5">
-      <div className="container mx-auto px-6 max-w-7xl">
-        <SectionHeading title="Technology Stack" subtitle="My Toolbox" />
+    <section id="skills" className="section border-t border-line">
+      <div className="container-custom">
+        <SectionHeading index="03 — Skills" title={<>A toolkit, <em>sharpened.</em></>} />
 
-        <div className="flex flex-col gap-16 mt-16">
-          {techCategories.map((category) => (
-            <div key={category.title} className="flex flex-col lg:flex-row gap-8 lg:gap-16">
-              <div className="w-full lg:w-1/4">
-                <h3 className="text-xl font-semibold text-foreground border-b border-white/10 pb-4">
-                  {category.title}
-                </h3>
-              </div>
-              <div className="w-full lg:w-3/4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {category.items.map((tech) => (
-                  <div
-                    key={tech.name}
-                    className="group relative p-6 rounded-2xl bg-white/[0.01] border border-white/5 hover:bg-white/[0.03] transition-all duration-300 overflow-hidden cursor-pointer"
-                  >
-                    {/* Hover Glow */}
-                    <div 
-                      className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 blur-2xl"
-                      style={{ backgroundColor: tech.color }}
-                    />
-                    
-                    <div className="relative z-10 flex flex-col items-start gap-4">
-                      <tech.icon 
-                        size={32} 
-                        className="text-gray-400 group-hover:scale-110 transition-transform duration-300" 
-                      />
-                      <div>
-                        <h4 className="text-gray-300 font-semibold tracking-wide group-hover:text-white transition-colors">
-                          {tech.name}
-                        </h4>
-                        <p className="text-xs text-gray-500 mt-1">{tech.desc}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+        <div className="grid gap-6 md:grid-cols-3">
+          {groups.map((g, i) => (
+            <Reveal key={g.title} delay={i * 0.08}>
+              <GlowCard className="h-full rounded-2xl border border-line bg-surface/60 p-8 transition-colors hover:border-accent/40">
+                <h3 className="display text-3xl">{g.title}</h3>
+                <p className="mt-3 text-sm text-muted">{g.blurb}</p>
+                <ul className="mt-8 space-y-3.5">
+                  {g.skills.map(({ name, icon: Icon }) => (
+                    <li key={name} className="group flex items-center gap-3 text-[0.95rem]">
+                      <Icon size={17} aria-hidden className="text-muted transition-colors group-hover:text-accent" />
+                      {name}
+                    </li>
+                  ))}
+                </ul>
+              </GlowCard>
+            </Reveal>
           ))}
         </div>
       </div>

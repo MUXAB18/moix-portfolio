@@ -1,22 +1,11 @@
-interface SectionHeadingProps {
-  title: string;
-  subtitle?: string;
-}
+import { Reveal } from "./Reveal";
 
-export function SectionHeading({ title, subtitle }: SectionHeadingProps) {
+/** `title` may contain an <em> to italicise and tint one word. */
+export function SectionHeading({ index, title }: { index: string; title: React.ReactNode }) {
   return (
-    <div className="mb-16">
-      <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
-        {title}
-      </h2>
-      {subtitle && (
-        <div className="mt-4 flex items-center gap-4">
-          <div className="h-[1px] w-12 bg-primary/50" />
-          <p className="text-gray-400 font-medium tracking-wide uppercase text-sm">
-            {subtitle}
-          </p>
-        </div>
-      )}
-    </div>
+    <Reveal className="mb-14 md:mb-20">
+      <p className="eyebrow mb-5">{index}</p>
+      <h2 className="display text-4xl md:text-6xl">{title}</h2>
+    </Reveal>
   );
 }

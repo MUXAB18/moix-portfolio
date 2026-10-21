@@ -1,64 +1,52 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Code, Database, Layout, Smartphone } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
+// Edit these four to match how you want to be hired.
 const services = [
   {
-    icon: <Code size={32} />,
-    title: "Full Stack Development",
-    description: "End-to-end development of modern web applications using React, Next.js, and Node.js.",
+    title: "Full-stack development",
+    text: "End-to-end web applications with React, Next.js and Node.js, from schema to deploy.",
   },
   {
-    icon: <Layout size={32} />,
-    title: "UI/UX Implementation",
-    description: "Translating design concepts into pixel-perfect, accessible, and responsive interfaces.",
+    title: "Interface engineering",
+    text: "Pixel-accurate, responsive and accessible interfaces that turn a design into a product.",
   },
   {
-    icon: <Database size={32} />,
-    title: "API & Backend",
-    description: "Designing and building secure, scalable RESTful and GraphQL APIs with robust database architecture.",
+    title: "APIs & backend",
+    text: "Secure, well-structured REST APIs and data models on PostgreSQL and MongoDB.",
   },
   {
-    icon: <Smartphone size={32} />,
-    title: "Web Optimization",
-    description: "Improving application performance, SEO, and accessibility to ensure the best user experience.",
+    title: "Performance & polish",
+    text: "Faster load times, better Core Web Vitals, cleaner code, and the details that make it feel finished.",
   },
 ];
 
 export function Services() {
   return (
-    <section id="services" className="py-24 relative">
-      <div className="container mx-auto px-6 max-w-7xl">
-        <SectionHeading title="What I Do" subtitle="Services" />
+    <section id="services" className="section border-t border-line">
+      <div className="container-custom">
+        <SectionHeading index="01 — What I do" title={<>Disciplines, <em>done well.</em></>} />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="group relative p-8 rounded-2xl glass border border-white/5 hover:border-primary/30 transition-all duration-300"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
-              
-              <div className="relative z-10">
-                <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
-                  {service.icon}
-                </div>
-                
-                <h3 className="text-2xl font-bold text-foreground mb-4">{service.title}</h3>
-                <p className="text-gray-400 leading-relaxed">
-                  {service.description}
-                </p>
+        <ul className="border-b border-line">
+          {services.map((s, i) => (
+            <Reveal as="li" key={s.title} delay={i * 0.05}>
+              <div className="group grid items-baseline gap-3 border-t border-line py-8 transition-colors hover:bg-surface/50 md:grid-cols-12 md:gap-8 md:px-4 md:py-10">
+                <span className="font-mono text-sm text-muted transition-colors group-hover:text-accent md:col-span-1">
+                  0{i + 1}
+                </span>
+                <h3 className="display text-2xl transition-transform duration-300 md:col-span-5 md:text-4xl md:group-hover:translate-x-2">
+                  {s.title}
+                </h3>
+                <p className="text-muted md:col-span-5 md:text-lg">{s.text}</p>
+                <ArrowUpRight
+                  aria-hidden
+                  className="hidden text-muted opacity-0 transition-all group-hover:translate-x-1 group-hover:text-accent group-hover:opacity-100 md:col-span-1 md:block md:justify-self-end"
+                />
               </div>
-            </motion.div>
+            </Reveal>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

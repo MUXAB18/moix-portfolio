@@ -1,60 +1,37 @@
-"use client";
-
-import { ArrowRight, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { SITE } from "@/data/site";
+import { ContactForm } from "./ContactForm";
+import { Reveal } from "./Reveal";
 
 export function Contact() {
   return (
-    <section id="contact" className="py-32 relative border-t border-white/5 bg-[#030712] overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 blur-[150px] rounded-full pointer-events-none z-[-1]" />
-      
-      <div className="container mx-auto px-6 max-w-5xl">
-        <div className="flex flex-col items-center text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold tracking-wider text-gray-300 mb-8">
-            CONTACT
-          </div>
-
-          <h2 className="text-5xl md:text-7xl lg:text-[80px] font-bold text-foreground mb-8 leading-[1.1] tracking-tighter">
-            Let's build something <br className="hidden md:block" />
-            <span className="text-gray-500">meaningful.</span>
+    <section id="contact" className="section relative overflow-hidden border-t border-line">
+      <div className="aurora absolute inset-0 -z-10" aria-hidden />
+      <div className="container-custom grid gap-14 lg:grid-cols-12">
+        <Reveal className="lg:col-span-6">
+          <p className="eyebrow mb-6">04 — Contact</p>
+          <h2 className="display text-4xl sm:text-5xl lg:text-6xl">
+            Have a project in mind? Let&apos;s build something <em>meaningful.</em>
           </h2>
-
-          <p className="text-xl text-gray-400 mb-16 max-w-2xl">
-            Have an idea, project, or opportunity? Let's talk.
+          <p className="mt-8 text-muted">
+            Prefer email?{" "}
+            <a href={`mailto:${SITE.email}`} className="link-underline text-foreground">
+              {SITE.email}
+            </a>
           </p>
-
-          <div className="flex flex-col sm:flex-row items-center gap-6">
-            <a
-              href="mailto:hello@example.com"
-              data-cursor="hover"
-              className="group relative inline-flex items-center justify-center gap-2 px-10 py-5 bg-foreground text-background font-bold rounded-full transition-transform hover:scale-105 active:scale-95 w-full sm:w-auto text-lg"
-            >
-              Start a Conversation
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+          <div className="mt-8 flex gap-6 text-muted">
+            <a href={SITE.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:text-foreground">
+              <FaGithub size={24} />
             </a>
-            
-            <a
-              href="mailto:hello@example.com"
-              data-cursor="open"
-              className="group inline-flex items-center justify-center gap-2 px-10 py-5 bg-transparent text-foreground border border-white/10 font-bold rounded-full hover:bg-white/5 transition-colors active:scale-95 w-full sm:w-auto text-lg"
-            >
-              Email Me ↗
+            <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-foreground">
+              <FaLinkedin size={24} />
             </a>
           </div>
+        </Reveal>
 
-          <div className="mt-24 flex items-center gap-8">
-            <a href="https://github.com/moizmalik777" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors" aria-label="GitHub Profile">
-              <FaGithub size={28} />
-            </a>
-            <a href="https://www.linkedin.com/in/abdul-moiz-8876a8440" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#0A66C2] transition-colors" aria-label="LinkedIn Profile">
-              <FaLinkedin size={28} />
-            </a>
-            <a href="mailto:hello@example.com" className="text-gray-500 hover:text-white transition-colors" aria-label="Email Me">
-              <Mail size={28} />
-            </a>
-          </div>
-        </div>
+        <Reveal className="lg:col-span-6" delay={0.1}>
+          <ContactForm />
+        </Reveal>
       </div>
     </section>
   );
